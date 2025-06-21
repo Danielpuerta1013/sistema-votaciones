@@ -19,12 +19,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
          return http
-                .securityMatcher("/api/**")
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/api/votes", "/api/votes/statistics").permitAll()
-                        .requestMatchers("/api/voter", "/api/candidate").authenticated()
+                        .requestMatchers("/api/voter/**", "/api/candidate/**").authenticated()
                         .requestMatchers("/api/votes/**").authenticated()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 ).
                 httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable).build();
