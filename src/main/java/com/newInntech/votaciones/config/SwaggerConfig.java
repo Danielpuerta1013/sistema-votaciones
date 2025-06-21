@@ -3,18 +3,23 @@ package com.newInntech.votaciones.config;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
         info = @Info(
                 title = "API-REST - Sistema de votaciones",
                 version = "1.0.0",
-                description = "\"API RESTful para gestionar un sistema de votaciones.\\n\\n\" +\n" +
-                        "                \"Permite registrar votantes, candidatos y emitir votos. Esta API ha sido desarrollada como parte de una prueba técnica para la empresa **New**, e incluye estadísticas de votación como el total de votos por candidato, porcentaje de votos y más.\",",
+                description = "\"API RESTful para gestionar un sistema de votaciones." +
+                        "                \"Permite registrar votantes, candidatos y emitir votos. Esta API ha sido desarrollada como parte de una prueba técnica para la empresa **New Inntech**, e incluye estadísticas de votación como el total de votos por candidato, porcentaje de votos y más.\",",
                 contact = @Contact(
                         name = "Daniel Puerta",
-                        email = "daniwar3@gmail.com"
+                        email = "daniwar3@gmail.com",
+                        url = "https://github.com/Danielpuerta1013/sistema-votaciones"
                 )
-        )
+        ),
+        servers = {
+                @Server(url = "localhost:8080/api",description = "servidor local")
+        }
 )
 public class SwaggerConfig {
 }

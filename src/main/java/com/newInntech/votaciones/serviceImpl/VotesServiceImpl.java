@@ -8,6 +8,7 @@ import com.newInntech.votaciones.repository.CandidateRepository;
 import com.newInntech.votaciones.repository.VoterRepository;
 import com.newInntech.votaciones.repository.VotesRepository;
 import com.newInntech.votaciones.service.VotesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Votes", description = "Servicio para gestionar votos")
 public class VotesServiceImpl implements VotesService {
     private final VotesRepository votesRepository;
     private final VoterRepository voterRepository;

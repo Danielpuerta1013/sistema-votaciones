@@ -50,6 +50,7 @@ public class CandidateServiceImpl implements CandidateService {
                 .build();
     }
 
+
     @Override
     public List<CandidateResponse> getAllCandidates() {
         var candidates=candidateRepository.findAll();
