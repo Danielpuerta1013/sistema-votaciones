@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 )
         ),
         servers = {
-                @Server(url = "localhost:8080/api",description = "servidor local")
+                @Server(url = "http://localhost:8080/api",description = "servidor local")
         }
 )
 public class SwaggerConfig {

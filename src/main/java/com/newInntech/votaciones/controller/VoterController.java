@@ -12,6 +12,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -88,5 +92,19 @@ public class VoterController {
     public ResponseEntity<ResponseDto> deleteVoterById(@RequestParam Long id){
         ResponseDto responseDto = voterService.deleteVoterById(id);
         return ResponseEntity.ok(responseDto);
+    }
+
+    @GetMapping("/paginated")
+    @Operation(summary = "Listar votantes con paginación y filtrado opcional por nombre y email")
+    public ResponseEntity<Page<VoterResponse>> getVotersPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email
+    ){
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        Page<VoterResponse> response = voterService.getVotersPaginated(pageable, name, email);
+        return ResponseEntity.ok(response);
+
     }
 }

@@ -12,6 +12,8 @@ import com.newInntech.votaciones.repository.CandidateRepository;
 import com.newInntech.votaciones.service.CandidateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -70,5 +72,26 @@ public class CandidateServiceImpl implements CandidateService {
                 .orElseThrow(() -> new ResourceNotFoundException("El candidato con id " +id+" no existe"));
         candidateRepository.delete(candidate);
         return new ResponseDto("El candidato se ha eliminado correctamente");
+    }
+
+    @Override
+    public Page<CandidateResponse> getCandidatesPaginated(Pageable pageable, String name, String party) {
+        Page<Candidate> candidates;
+        if (name != null && party != null) {
+            candidates= candidateRepository.findByNameContainingIgnoreCaseAndPartyContainingIgnoreCase(name, party, pageable);
+        }else if (name != null) {
+            candidates = candidateRepository.findByNameContainingIgnoreCase(name, pageable);
+
+        }else if (party != null) {
+            candidates = candidateRepository.findByPartyContainingIgnoreCase(party, pageable);
+        } else {
+            candidates = candidateRepository.findAll(pageable);
+        }
+        return candidates.map(candidate -> CandidateResponse.builder()
+                .id(candidate.getId())
+                .name(candidate.getName())
+                .party(candidate.getParty())
+                .votes(candidate.getVotes())
+                .build());
     }
 }
